@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './ResponsiveLayout';
+import App from './FlexDemo';
 import * as serviceWorker from './serviceWorker';
 import structure from './demo/structure';
 

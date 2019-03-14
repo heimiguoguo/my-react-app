@@ -40,6 +40,7 @@ class EchartsDemo extends Component {
         // });
         setTimeout(function(){
             console.log('Echarts resized...');
+            console.log(new Date());
             window.myChart.resize();
         },1000)
     }
@@ -51,8 +52,8 @@ class EchartsDemo extends Component {
     render() {
         return (
             <div>
-                <div id='main' style={{width:500, height: 280, flex: 1, display: this.state.expand?'':'none'}}></div>
-                <button onClick={this.toggle.bind(this)}>toggle</button>
+                <div id='main' style={{height: 280, flex: 1, display: this.state.expand?'':'none'}}></div>
+                {/* <button onClick={this.toggle.bind(this)}>toggle</button> */}
             </div>
         )
     }

@@ -52,7 +52,7 @@ class EchartsDemo2 extends Component {
         return (
             <div>
                 <div id='main2' style={{width:500, height: 280, flex: 1, display: this.state.expand?'':'none'}}></div>
-                <button onClick={this.toggle.bind(this)}>toggle</button>
+                {/* <button onClick={this.toggle.bind(this)}>toggle</button> */}
             </div>
         )
     }
