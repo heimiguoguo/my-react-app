@@ -10,7 +10,8 @@
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-dragula": "^1.1.17",
-    "react-scripts": "2.1.5"
+    "react-scripts": "2.1.5",
+    "reactstrap": "^7.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -28,6 +29,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
     "react-loadable": "^5.5.0"
   }
 }

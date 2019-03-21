@@ -1,0 +1,7 @@
+.container div{
+    margin-bottom: 5px;
+    background-color: tomato;
+    height: 100px;
+    text-align: center;
+    font-size: 33px;
+}
