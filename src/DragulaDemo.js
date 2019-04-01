@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as ReactDOM from 'react-dom';
 import 'dragula/dist/dragula.css';
 import Dragula from 'react-dragula';
 import './DragulaDemo.css';

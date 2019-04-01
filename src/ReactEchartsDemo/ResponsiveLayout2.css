@@ -1,0 +1,15 @@
+/* .container{
+    display: flex;
+    flex-direction: column;
+} */
+
+
+.row{
+    background-color: #132e35;
+}
+
+.col{
+    display: inline-block;
+    width: 50%;
+    /* padding: 10px; */
+}
