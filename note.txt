@@ -8,81 +8,11 @@ http://golden-layout.com/
 
 
 
-2019-02-27	Wed.
-李坤
-章倩        
-李任耀      Lawrence
-简文娟      Jean
-黄漭        Tom
-            Michael
-陈伟        Steven  
-
-
-
 UI框架需求点
 1. 可拖拽改变容器大小
 2. 可拖拽改变容器位置
 3. 可最大化最小化
 
 
-简文娟站点
-https://10.137.113.48:3000/auth 
-jinsong.huang@hexagon.com 
-
-
-
 https://hexagonsf.visualstudio.com/_git/platform
 
-daily report
-
-2019-02-28  Wed.
-
-Hi team,
- 
-The following is my status today, please review.
- 
-Done:
-1.     Define a layout structure and create a component to render the layout recursively.
- 
-To do:
-1.     Continue to improve the component to make it resizable and draggable.
- 
-Thanks,
-Tom Huang
-
-
-
-2019-02-29  Thur.
-
-Hi team,
- 
-The following is my status today, please review.
- 
-Done:
-1.     Improve the layout component using flex layout. The width of each column can be configured, if not, their width will share the rest width.
- 
-To do:
-1.     Continue to improve the component to make it adaptive, that is to say, the component will show on the next line with container width decreasing.
- 
-Thanks,
-Tom Huang
-
-
-Daily status (2019-2-27) - Tom Huang
-
-hello, everyone! At first, I want to apologise for what heppened yesterday. It's embarrassed.
-
-
-set the head potrait
-
-
-devOps
-
-
-2019-03-01  Fri.
-1. 找到拖拽插件react-dragula，但是使用的是bower和browserify，这两个东西不会用，现在有些问题解决不了
-    1) 拖拽元素没有半透明样式，原因没有引入css
-    2) 引入css以后，被拖拽元素半透明效果有了，上下拖拽没有问题，但是左右拖拽会导致siblings一起动
-
-2. win10下VSCode集成终端光标位置错误
-https://www.jianshu.com/p/f6c7b8e235c6
