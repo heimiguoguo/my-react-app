@@ -9,4 +9,29 @@
 <body>
     <img src="./export-icon.svg" alt="">
 </body>
+<script type='module'>
+    // Chrome浏览器目前也不支持用static定义静态属性
+    class Test{
+        // static defaultProps = {
+        //     name: 'tom'
+        // }
+        constructor(props){
+            // super(props)
+            console.log('Test constructed')
+            console.log(props)
+        }
+    }
+
+    Test.defaultProps = {
+        name: 'tom'
+    }
+
+    new Test()
+
+
+    import {foo, num} from './test.js';
+  
+    console.log(num);
+    console.log(foo());
+</script>
 </html>
