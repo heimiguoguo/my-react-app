@@ -9,8 +9,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 // import App from './react-router/components/example';
 // import App from './ReactEchartsDemo/ReactEchartsDemo2';
 
-import todoApp from './redux1/reducers'
-import App from './redux1/components/App'
+import todoApp from './redux2/reducers'
+import App from './redux2/components/App'
 import * as serviceWorker from './serviceWorker';
 
 let store = createStore(todoApp)
