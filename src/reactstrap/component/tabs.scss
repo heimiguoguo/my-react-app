@@ -1,0 +1,12 @@
+.tabList{
+    border-bottom: 2px solid #ccc;
+}
+
+.tab{
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.tab.active{
+    border-bottom: 2px solid #ff0000;
+}
