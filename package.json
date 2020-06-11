@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^3.21.4",
+    "antd": "^4.3.3",
+    "echarts": "^4.8.0",
+    "echarts-for-react": "^2.0.16",
     "immutability-helper": "^3.0.1",
-    "react": "^16.8.6",
+    "moment": "^2.26.0",
+    "react": "^16.13.1",
     "react-dnd": "^9.4.0",
     "react-dnd-html5-backend": "^9.4.0",
     "react-dom": "^16.8.6",
@@ -34,5 +37,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^8.0.2"
   }
 }
