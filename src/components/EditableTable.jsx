@@ -1,88 +1,102 @@
-import React from 'react'
-import { Table, Select, Button, Popconfirm, Form } from 'antd';
-const formList = []
+import React, { useContext, useState, useEffect, useRef } from 'react';
+import { Table, Input, Button, Form, Popconfirm } from 'antd';
+
 const EditableContext = React.createContext();
 
-const EditableRow = ({ form, index, ...props }) => {
-    formList.push(form)
-    return (<EditableContext.Provider value={form}>
-        <tr {...props} />
-    </EditableContext.Provider>)
+const EditableRow = ({ index, ...props }) => {
+    const [form] = Form.useForm();
+    return (
+        <Form form={form} component={false}>
+            <EditableContext.Provider value={form}>
+                <tr {...props} />
+            </EditableContext.Provider>
+        </Form>
+    );
 };
 
-const EditableFormRow = Form.create()(EditableRow);
+const EditableCell = ({
+    title,
+    editable,
+    children,
+    dataIndex,
+    record,
+    handleSave,
+    ...restProps
+}) => {
+    const [editing, setEditing] = useState(false);
+    const inputRef = useRef();
+    const form = useContext(EditableContext);
+    useEffect(() => {
+        if (editing) {
+            inputRef.current.focus();
+        }
+    }, [editing]);
 
-class EditableCell extends React.Component {
-    save = e => {
-        const { record, handleSave } = this.props;
-        this.form.validateFields((error, values) => {
-            if (error && error[e.currentTarget.id]) {
-                return;
-            }
-            handleSave({ ...record, ...values });
+    const toggleEdit = () => {
+        setEditing(!editing);
+        form.setFieldsValue({
+            [dataIndex]: record[dataIndex],
         });
     };
 
-    renderCell = form => {
-        this.form = form;
-        const { dataIndex, record, title } = this.props;
-        return <Form.Item style={{ margin: 0 }}>
-            {form.getFieldDecorator(dataIndex, {
-                rules: [
+    const save = async e => {
+        try {
+            const values = await form.validateFields();
+            toggleEdit();
+            handleSave({ ...record, ...values });
+        } catch (errInfo) {
+            console.log('Save failed:', errInfo);
+        }
+    };
+
+    let childNode = children;
+
+    if (editable) {
+        childNode = editing ? (
+            <Form.Item
+                style={{
+                    margin: 0,
+                }}
+                name={dataIndex}
+                rules={[
                     {
                         required: true,
                         message: `${title} is required.`,
                     },
-                ],
-                initialValue: record[dataIndex],
-            })(<Select ref={node => (this.input = node)} onPressEnter={this.save} onBlur={this.save}>
-                {
-
-                }
-            </Select>)}
-        </Form.Item>
-    };
-
-    render() {
-        const {
-            editable,
-            dataIndex,
-            title,
-            record,
-            index,
-            handleSave,
-            children,
-            ...restProps
-        } = this.props;
-        return (
-            <td {...restProps}>
-                {editable ? (
-                    <EditableContext.Consumer>{this.renderCell}</EditableContext.Consumer>
-                ) : (
-                        children
-                    )}
-            </td>
-        );
+                ]}
+            >
+                <Input ref={inputRef} onPressEnter={save} onBlur={save} />
+            </Form.Item>
+        ) : (
+                <div
+                    className="editable-cell-value-wrap"
+                    style={{
+                        paddingRight: 24,
+                    }}
+                    onClick={toggleEdit}
+                >
+                    {children}
+                </div>
+            );
     }
-}
+
+    return <td {...restProps}>{childNode}</td>;
+};
 
 class EditableTable extends React.Component {
     constructor(props) {
         super(props);
         this.columns = [
             {
-                title: 'name',
-                dataIndex: 'name',
+                title: 'date',
+                dataIndex: 'date',
                 width: '30%',
                 editable: true,
             },
             {
-                title: 'age',
-                dataIndex: 'age',
-            },
-            {
-                title: 'address',
-                dataIndex: 'address',
+                title: 'value',
+                dataIndex: 'value',
+                editable: true
             },
             {
                 title: 'operation',
@@ -95,20 +109,17 @@ class EditableTable extends React.Component {
                     ) : null,
             },
         ];
-
         this.state = {
             dataSource: [
                 {
                     key: '0',
-                    name: 'Edward King 0',
-                    age: '32',
-                    address: 'London, Park Lane no. 0',
+                    date: 'Edward King 0',
+                    value: '9000'
                 },
                 {
                     key: '1',
-                    name: 'Edward King 1',
-                    age: '32',
-                    address: 'London, Park Lane no. 1',
+                    date: 'Edward King 0',
+                    value: '9000'
                 },
             ],
             count: 2,
@@ -117,16 +128,17 @@ class EditableTable extends React.Component {
 
     handleDelete = key => {
         const dataSource = [...this.state.dataSource];
-        this.setState({ dataSource: dataSource.filter(item => item.key !== key) });
+        this.setState({
+            dataSource: dataSource.filter(item => item.key !== key),
+        });
     };
 
     handleAdd = () => {
         const { count, dataSource } = this.state;
         const newData = {
             key: count,
-            name: '',
-            age: 32,
-            address: '',
+            date: ``,
+            value: ''
         };
         this.setState({
             dataSource: [...dataSource, newData],
@@ -134,28 +146,21 @@ class EditableTable extends React.Component {
         });
     };
 
-    handleValidate = () => {
-        formList[formList.length -1].validateFields((errors, values)=>{
-            console.log(errors)
-        })
-    }
-
     handleSave = row => {
         const newData = [...this.state.dataSource];
         const index = newData.findIndex(item => row.key === item.key);
         const item = newData[index];
-        newData.splice(index, 1, {
-            ...item,
-            ...row,
+        newData.splice(index, 1, { ...item, ...row });
+        this.setState({
+            dataSource: newData,
         });
-        this.setState({ dataSource: newData });
     };
 
     render() {
         const { dataSource } = this.state;
         const components = {
             body: {
-                row: EditableFormRow,
+                row: EditableRow,
                 cell: EditableCell,
             },
         };
@@ -163,6 +168,7 @@ class EditableTable extends React.Component {
             if (!col.editable) {
                 return col;
             }
+
             return {
                 ...col,
                 onCell: record => ({
@@ -176,11 +182,14 @@ class EditableTable extends React.Component {
         });
         return (
             <div>
-                <Button onClick={this.handleAdd} type="primary" style={{ marginBottom: 16 }}>
+                <Button
+                    onClick={this.handleAdd}
+                    type="primary"
+                    style={{
+                        marginBottom: 16,
+                    }}
+                >
                     Add a row
-                </Button>
-                <Button onClick={this.handleValidate} type="primary" style={{ margin: 16 }}>
-                    Validate
                 </Button>
                 <Table
                     components={components}
