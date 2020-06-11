@@ -56,7 +56,6 @@ const EditableCell = ({
     };
 
     let childNode = children;
-    console.log(children)
 
     if (editable) {
         childNode = editing ? (
