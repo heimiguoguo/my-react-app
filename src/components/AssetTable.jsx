@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Table, Input, DatePicker, Button, Form, Popconfirm } from 'antd';
 import moment from 'moment'
-import './EditableTable.scss'
+import './AssetTable.scss'
 
 const EditableContext = React.createContext();
 
@@ -45,8 +45,8 @@ const EditableCell = ({
     const save = async e => {
         try {
             let values = await form.validateFields();
-            if(values.date){
-                values = {...values,...{date:values.date.format('YYYY-MM-DD')}}
+            if (values.date) {
+                values = { ...values, ...{ date: values.date.format('YYYY-MM-DD') } }
             }
             toggleEdit();
             handleSave({ ...record, ...values });
@@ -96,76 +96,81 @@ class EditableTable extends React.Component {
         super(props);
         this.columns = [
             {
-                title: 'date',
+                title: 'Date',
                 dataIndex: 'date',
                 width: '30%',
                 editable: true,
             },
             {
-                title: 'value',
-                dataIndex: 'value',
+                title: 'Expected',
+                dataIndex: 'expected',
                 editable: true
             },
             {
-                title: 'operation',
+                title: 'Actual',
+                dataIndex: 'actual',
+                editable: true
+            },
+            {
+                title: 'Operation',
                 dataIndex: 'operation',
                 render: (text, record) =>
-                    this.state.dataSource.length >= 1 ? (
-                        <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.key)}>
+                    this.props.assets.length >= 1 ? (
+                        <Popconfirm title="Sure to delete?" onConfirm={() => this.handleDelete(record.id)}>
                             <a>Delete</a>
                         </Popconfirm>
                     ) : null,
             },
         ];
         this.state = {
-            dataSource: [
-                {
-                    key: '0',
-                    date: '2020-06-30',
-                    value: '9000'
-                },
-                {
-                    key: '1',
-                    date: '2020-07-09',
-                    value: '7000'
-                },
-            ],
-            count: 2,
-        };
+            scrollHeight: 0
+        }
     }
 
-    handleDelete = key => {
-        const dataSource = [...this.state.dataSource];
+    componentDidMount() {
+        this.setTableScrollHeight()
+        window.onresize = () => {
+            this.setTableScrollHeight()
+        }
+    }
+
+    getTableScrollHeight = () => {
+        const tableHeight = document.getElementsByClassName('asset-table')[0].clientHeight
+        const scrollHeight = tableHeight - 120
+        console.log(scrollHeight)
+        return scrollHeight
+    }
+
+    setTableScrollHeight = () => {
+        const scrollHeight = this.getTableScrollHeight()
         this.setState({
-            dataSource: dataSource.filter(item => item.key !== key),
-        });
+            scrollHeight
+        })
+    }
+
+    handleDelete = id => {
+        const { deleteAsset } = this.props
+        deleteAsset(id)
     };
 
     handleAdd = () => {
-        const { count, dataSource } = this.state;
+        const { addAsset } = this.props;
         const newData = {
-            key: count,
             date: moment(new Date()).format('YYYY-MM-DD'),
-            value: '7000'
+            expected: 7000,
+            actual: 7000
         };
-        this.setState({
-            dataSource: [...dataSource, newData],
-            count: count + 1,
-        });
+        addAsset(newData)
     };
 
     handleSave = row => {
-        const newData = [...this.state.dataSource];
-        const index = newData.findIndex(item => row.key === item.key);
-        const item = newData[index];
-        newData.splice(index, 1, { ...item, ...row });
-        this.setState({
-            dataSource: newData,
-        });
+        const { updateAsset } = this.props
+        updateAsset(row)
     };
 
     render() {
-        const { dataSource } = this.state;
+        const { assets } = this.props
+        const { scrollHeight } = this.state
         const components = {
             body: {
                 row: EditableRow,
@@ -200,11 +205,13 @@ class EditableTable extends React.Component {
                     Add a row
                 </Button>
                 <Table
+                    rowKey='id'
                     components={components}
                     rowClassName={() => 'editable-row'}
                     bordered
-                    dataSource={dataSource}
+                    dataSource={assets}
                     columns={columns}
+                    scroll={{ y: scrollHeight }}
                 />
             </div>
         );
