@@ -4,7 +4,7 @@ import ReactEcharts from 'echarts-for-react';
 
 class AssetChart extends Component {
     getOption = () => {
-        console.log(this.props.assets)
+        console.log(this.props)
         const { assets } = this.props
         return {
             title: {

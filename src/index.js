@@ -5,15 +5,28 @@ import 'antd/dist/antd.css';
 // import App from './App';
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import todoApp from './reducers'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import { PersistGate } from 'redux-persist/integration/react'
+import rootReducer from './reducers'
+import { Spin } from 'antd';
 import App from './components/App'
 import * as serviceWorker from './serviceWorker';
 
-let store = createStore(todoApp)
+const persistConfig = {
+    key: 'root',
+    storage
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+let store = createStore(persistedReducer)
+let persistor = persistStore(store)
 
 ReactDOM.render(
     <Provider store={store}>
-        < App />
+        <PersistGate loading={<Spin></Spin>} persistor={persistor}>
+            < App />
+        </PersistGate>
     </Provider>,
     document.getElementById('root')
 );

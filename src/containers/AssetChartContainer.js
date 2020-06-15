@@ -3,7 +3,7 @@ import AssetChart from '../components/AssetChar'
 
 const mapStateToProps = state => {
     return {
-        assets: state
+        assets: state.assets
     }
 }
 

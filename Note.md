@@ -36,3 +36,10 @@ https://hexagonsf.visualstudio.com/_git/platform
   npm i moment
   ```
 
+* import redux-persist
+  ```javascript
+  npm i redux-persist
+  ```
+
+  + 引入了redux-persist，每次刷新页面redux-persist都会自动加载之前的state并且初始化state，所以reducer参数state不需要设置默认值
+

@@ -1,33 +1,37 @@
-const initialState = [
-    {
-        id: 0,
-        date: '2020-06-30',
-        expected: 9000,
-        actual: 9000
-    },
-    {
-        id: 1,
-        date: '2020-07-09',
-        expected: 7000,
-        actual: 7000
-    },
-    {
-        id: 2,
-        date: '2020-07-19',
-        expected: 9000,
-        actual: 9000
-    },
-    {
-        id: 3,
-        date: '2020-07-30',
-        expected: 7000,
-        actual: 7000
-    },
-]
+import { combineReducers } from 'redux'
 
-let assetId = Math.max(...initialState.map(item=>item.id))
+const initialState = {
+    assets: [
+        {
+            id: 0,
+            date: '2020-06-30',
+            expected: 9000,
+            actual: 9000
+        },
+        {
+            id: 1,
+            date: '2020-07-09',
+            expected: 7000,
+            actual: 7000
+        },
+        {
+            id: 2,
+            date: '2020-07-19',
+            expected: 9000,
+            actual: 9000
+        },
+        {
+            id: 3,
+            date: '2020-07-30',
+            expected: 7000,
+            actual: 7000
+        }
+    ]
+}
 
-const assets = (state = initialState, action) => {
+let assetId = Math.max(...initialState.assets.map(item => item.id))
+
+const assets = (state = initialState.assets, action) => {
     switch (action.type) {
         case 'ADD_ASSET':
             return [
@@ -52,4 +56,8 @@ const assets = (state = initialState, action) => {
     }
 }
 
-export default assets
+const rootReducer = combineReducers({
+    assets
+})
+
+export default rootReducer

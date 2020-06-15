@@ -4,7 +4,7 @@ import AssetTable from '../components/AssetTable'
 
 const mapStateToProps = state => {
     return {
-        assets: state
+        assets: state.assets
     }
 }
 
