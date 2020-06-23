@@ -43,3 +43,5 @@ https://hexagonsf.visualstudio.com/_git/platform
 
   + 引入了redux-persist，每次刷新页面redux-persist都会自动加载之前的state并且初始化state，所以reducer参数state不需要设置默认值
 
+* store相关的代码最好不要放到index.js里边，放到每个demo根组件中，这样如果要切换demo直接在index.js里边修改demo根组件即可，不用动跟redux相关的任何配置
+
