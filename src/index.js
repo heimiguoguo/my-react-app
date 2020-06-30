@@ -4,7 +4,7 @@ import './index.css';
 import 'antd/dist/antd.css';
 // import App from './App';
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -19,7 +19,9 @@ const persistConfig = {
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
-let store = createStore(persistedReducer)
+let store = configureStore({
+    reducer: persistedReducer
+})
 let persistor = persistStore(store)
 
 ReactDOM.render(

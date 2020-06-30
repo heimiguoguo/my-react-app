@@ -96,6 +96,10 @@ class EditableTable extends React.Component {
         super(props);
         this.columns = [
             {
+                title: 'No.',
+                render: (text, record, index) => `${index + 1}`
+            },
+            {
                 title: 'Date',
                 dataIndex: 'date',
                 width: '30%',
@@ -137,7 +141,6 @@ class EditableTable extends React.Component {
     getTableScrollHeight = () => {
         const tableHeight = document.getElementsByClassName('asset-table')[0].clientHeight
         const scrollHeight = tableHeight - 120
-        console.log(scrollHeight)
         return scrollHeight
     }
 
@@ -152,6 +155,11 @@ class EditableTable extends React.Component {
         const { deleteAsset } = this.props
         deleteAsset(id)
     };
+
+    handleBulkDelete = () => {
+        const { selectedRowKeys, bulkDeleteAsset } = this.props
+        bulkDeleteAsset(selectedRowKeys)
+    }
 
     handleAdd = () => {
         const { addAsset } = this.props;
@@ -168,8 +176,17 @@ class EditableTable extends React.Component {
         updateAsset(row)
     };
 
+    onSelectChange = selectedRowKeys => {
+        console.log('selectedRowKeys changed: ', selectedRowKeys);
+        const { setSelectedRowKeys } = this.props
+        setSelectedRowKeys(selectedRowKeys)
+    };
+
     render() {
-        const { assets } = this.props
+        const { assets, selectedRowKeys } = this.props
+        for (let i = 0; i < assets.length; i++) {
+            console.log(assets[i].id)
+        }
         const { scrollHeight } = this.state
         const components = {
             body: {
@@ -193,6 +210,12 @@ class EditableTable extends React.Component {
                 }),
             };
         });
+
+        const rowSelection = {
+            selectedRowKeys,
+            onChange: this.onSelectChange,
+        };
+        const hasSelected = selectedRowKeys.length > 0;
         return (
             <div>
                 <Button
@@ -200,13 +223,25 @@ class EditableTable extends React.Component {
                     type="primary"
                     style={{
                         marginBottom: 16,
+                        marginRight: 8
                     }}
                 >
                     Add a row
                 </Button>
+                <Button
+                    onClick={this.handleBulkDelete}
+                    type="primary"
+                    danger
+                    style={{
+                        marginBottom: 16,
+                    }}
+                >
+                    Bulk delete
+                </Button>
                 <Table
                     rowKey='id'
                     components={components}
+                    rowSelection={rowSelection}
                     rowClassName={() => 'editable-row'}
                     bordered
                     dataSource={assets}

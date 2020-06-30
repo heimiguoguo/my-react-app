@@ -23,3 +23,17 @@ export const deleteAsset = id => {
         id
     }
 }
+
+export const bulkDeleteAsset = ids => {
+    return {
+        type: 'BULK_DELETE_ASSET',
+        ids
+    }
+}
+
+export const setSelectedRowKeys = ids => {
+    return {
+        type: 'SET_SELECTED_ROW_KEYS',
+        ids
+    }
+}

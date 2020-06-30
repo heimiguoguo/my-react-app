@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
     "antd": "^4.3.3",
     "echarts": "^4.8.0",
     "echarts-for-react": "^2.0.16",

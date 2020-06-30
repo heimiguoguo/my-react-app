@@ -43,3 +43,5 @@ https://hexagonsf.visualstudio.com/_git/platform
 
   + 引入了redux-persist，每次刷新页面redux-persist都会自动加载之前的state并且初始化state，所以reducer参数state不需要设置默认值
 
+* 引入批量删除功能，但是由于添加功能id可能重复，导致批量删除功能不正常，下一步解决这个bug，并用redux-toolkit重写redux相关的逻辑
+

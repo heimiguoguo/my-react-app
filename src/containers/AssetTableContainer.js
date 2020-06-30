@@ -1,26 +1,16 @@
 import { connect } from 'react-redux'
-import { addAsset, updateAsset, deleteAsset } from '../actions'
+import { addAsset, updateAsset, deleteAsset, bulkDeleteAsset } from '../features/assets/assetsSlice'
+import { setSelectedRowKeys} from '../features/selectedRowKeys/selectedRowKeysSlice'
 import AssetTable from '../components/AssetTable'
 
 const mapStateToProps = state => {
     return {
-        assets: state.assets
+        assets: state.assets,
+        selectedRowKeys: state.selectedRowKeys
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        addAsset: (asset) => {
-            dispatch(addAsset(asset))
-        },
-        updateAsset: (asset) => {
-            dispatch(updateAsset(asset))
-        },
-        deleteAsset: id => {
-            dispatch(deleteAsset(id))
-        }
-    }
-}
+const mapDispatchToProps = {addAsset,updateAsset,deleteAsset,bulkDeleteAsset,setSelectedRowKeys}
 
 const AssetChartContainer = connect(
     mapStateToProps,
