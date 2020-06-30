@@ -10,7 +10,8 @@ import storage from 'redux-persist/lib/storage'
 import { PersistGate } from 'redux-persist/integration/react'
 import rootReducer from './reducers'
 import { Spin } from 'antd';
-import App from './components/App'
+// import App from './components/App'
+import App from './super-redux/containers/Root'
 import * as serviceWorker from './serviceWorker';
 
 const persistConfig = {
@@ -25,11 +26,12 @@ let store = configureStore({
 let persistor = persistStore(store)
 
 ReactDOM.render(
-    <Provider store={store}>
-        <PersistGate loading={<Spin></Spin>} persistor={persistor}>
-            < App />
-        </PersistGate>
-    </Provider>,
+    // <Provider store={store}>
+    //     <PersistGate loading={<Spin></Spin>} persistor={persistor}>
+    //         < App />
+    //     </PersistGate>
+    // </Provider>,
+    < App />,
     document.getElementById('root')
 );
 

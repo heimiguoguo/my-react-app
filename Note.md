@@ -45,3 +45,5 @@ https://hexagonsf.visualstudio.com/_git/platform
 
 * 引入批量删除功能，但是由于添加功能id可能重复，导致批量删除功能不正常，下一步解决这个bug，并用redux-toolkit重写redux相关的逻辑
 
+* store相关的代码最好不要放到index.js里边，放到每个demo根组件中，这样如果要切换demo直接在index.js里边修改demo根组件即可，不用动跟redux相关的任何配置
+
