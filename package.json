@@ -3,13 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd": "^3.26.15",
-    "bootstrap": "^4.4.1",
-    "node-sass": "^4.13.1",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
-    "react-scripts": "^2.1.8",
-    "reactstrap": "^7.1.0"
+    "@reduxjs/toolkit": "^1.4.0",
+    "antd": "^4.3.3",
+    "cross-fetch": "^3.0.5",
+    "echarts": "^4.8.0",
+    "echarts-for-react": "^2.0.16",
+    "immutability-helper": "^3.0.1",
+    "moment": "^2.26.0",
+    "react": "^16.13.1",
+    "react-dnd": "^9.4.0",
+    "react-dnd-html5-backend": "^9.4.0",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -20,15 +31,22 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "devDependencies": {
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
-    "video.js": "^7.7.5"
+    "node-sass": "^4.14.1",
+    "sass-loader": "^8.0.2"
   }
 }
