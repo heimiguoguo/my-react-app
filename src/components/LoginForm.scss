@@ -1,0 +1,16 @@
+#login_page {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-image: url(/images/bg.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    #login_form {
+        background-color: #fff;
+        form {
+            width: 500px;
+            padding: 30px;
+        }
+    }
+}

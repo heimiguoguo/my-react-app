@@ -1,37 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import 'antd/dist/antd.css';
-// import App from './App';
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-import { PersistGate } from 'redux-persist/integration/react'
 import rootReducer from './reducers'
-import { Spin } from 'antd';
-// import App from './components/App'
-import App from './super-redux/containers/Root'
+import { Layout } from 'antd';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import LoginForm from './components/LoginForm'
+import Index from './components/Index'
 import * as serviceWorker from './serviceWorker';
 
-const persistConfig = {
-    key: 'root',
-    storage
-}
-
-const persistedReducer = persistReducer(persistConfig, rootReducer)
-let store = configureStore({
-    reducer: persistedReducer
+const store = configureStore({
+    reducer: rootReducer
 })
-let persistor = persistStore(store)
 
+const { Content } = Layout;
 ReactDOM.render(
-    // <Provider store={store}>
-    //     <PersistGate loading={<Spin></Spin>} persistor={persistor}>
-    //         < App />
-    //     </PersistGate>
-    // </Provider>,
-    < App />,
+    <Provider store={store}>
+        <Layout>
+            <Header></Header>
+            <Content>
+                <Router>
+                    <Switch>
+                        <Route path='/' exact component={LoginForm}></Route>
+                        <Route path='/index' component={Index}></Route>
+                    </Switch>
+                </Router>
+            </Content>
+            <Footer></Footer>
+        </Layout>
+    </Provider>,
     document.getElementById('root')
 );
 
