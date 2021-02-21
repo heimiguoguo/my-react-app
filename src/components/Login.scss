@@ -1,0 +1,29 @@
+.login {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-image: url(/images/bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    .login_card {
+        position: relative;
+        right: 200px;
+        width: 400px;
+        .logo {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        .login_form_footer{
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+            a{
+                margin-left: 20px;
+                color: #262626;
+            }
+        }
+    }
+}

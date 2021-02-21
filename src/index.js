@@ -5,33 +5,15 @@ import 'antd/dist/antd.css';
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import rootReducer from './reducers'
-import { Layout } from 'antd';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import LoginForm from './components/LoginForm'
-import Index from './components/Index'
+import App from './App'
 import * as serviceWorker from './serviceWorker';
 
 const store = configureStore({
     reducer: rootReducer
 })
-
-const { Content } = Layout;
 ReactDOM.render(
     <Provider store={store}>
-        <Layout>
-            <Header></Header>
-            <Content>
-                <Router>
-                    <Switch>
-                        <Route path='/' exact component={LoginForm}></Route>
-                        <Route path='/index' component={Index}></Route>
-                    </Switch>
-                </Router>
-            </Content>
-            <Footer></Footer>
-        </Layout>
+        <App></App>
     </Provider>,
     document.getElementById('root')
 );
